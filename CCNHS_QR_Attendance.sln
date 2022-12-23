@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCNHS_QR_Attendance", "CCNHS_QR_Attendance.csproj", "{DCF8AAE9-8E58-4B26-9643-A7CD53BEEC95}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B4257226-7DA0-41A7-95D2-4125F76392B1}"
+	ProjectSection(SolutionItems) = preProject
+		TextFile1.txt = TextFile1.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCF8AAE9-8E58-4B26-9643-A7CD53BEEC95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCF8AAE9-8E58-4B26-9643-A7CD53BEEC95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCF8AAE9-8E58-4B26-9643-A7CD53BEEC95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCF8AAE9-8E58-4B26-9643-A7CD53BEEC95}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C91C14AB-3241-464E-B952-C51B0D40DDF1}
+	EndGlobalSection
+EndGlobal

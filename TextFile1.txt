@@ -1,0 +1,180 @@
+  private void button_AddAttendance_onclick(object sender, EventArgs e)
+        {
+            Prepare_Data();
+
+            bool EMPTY_arrival_morning = true;
+            bool EMPTY_departure_morning = true;
+            bool EMPTY_arrival_afternoon = true;
+            bool EMPTY_departure_afternoon = true;
+
+            for (int i = 0; i <= QR_DATA.Count - 1; i++)
+            {
+                try
+                {
+                    string QR_DATA_line = i + ">>>" + QR_DATA[i];
+                    string[] QR_DATA_result = QR_DATA_line.Split(new string[] { "##" }, StringSplitOptions.None);
+                    string[] QR_DATA_mode_array = QR_DATA_result[0].Split(new string[] { ">>>" }, StringSplitOptions.None);
+                    string QR_DATA_mode = QR_DATA_mode_array[1];
+
+                    bool DateareSame = String.Equals(main_date, QR_DATA_result[3], StringComparison.OrdinalIgnoreCase);
+                    bool IDareSame = String.Equals(main_qrcode, QR_DATA_result[1], StringComparison.OrdinalIgnoreCase);
+
+                    if (DateareSame == true && IDareSame == true)
+                    {
+                            if (QR_DATA_mode == "Arrival")
+                            {
+                                if (Check_Time_Mode(QR_DATA_result[2]) == "Arrival-Morning")
+                                {
+                                    EMPTY_arrival_morning = false;
+                                }
+                                
+                                
+                            };
+
+                            if (QR_DATA_mode == "Departure")
+                            {
+                                if (Check_Time_Mode(QR_DATA_result[2]) == "Departure-Morning")
+                                {
+                                    EMPTY_departure_morning = false;
+                                }
+                                
+                            };
+
+                            if (QR_DATA_mode == "Arrival")
+                            {
+                                if (Check_Time_Mode(QR_DATA_result[2]) == "Arrival-Afternoon")
+                                {
+                                    EMPTY_arrival_afternoon = false;
+                                }
+                                
+                            };
+
+                            if (QR_DATA_mode == "Departure")
+                            {
+                                
+                                if (Check_Time_Mode(QR_DATA_result[2]) == "Departure-Afternoon")
+                                {
+                                    EMPTY_departure_afternoon = false;
+                                }
+                            };
+
+                    }
+                }
+                catch (Exception exc)
+                {
+                    string message = exc.Message;
+                    string title = "button_ApplyChanges_onclick";
+                    MessageBox.Show(message, title + " ERROR");
+                }
+
+            }
+
+
+            if (EMPTY_arrival_morning == true && checkBox_ArrivalMorning.Checked == true)
+            {
+                DateTime dateTime; DateTime.TryParse(main_time_arrival_morning, out dateTime);
+                if (dateTime.Hour <= 10)
+                {
+                    DialogResult dialogResult = MessageBox.Show(" Morning Arrival of " + main_qrcode +" with the time of " + main_time_arrival_morning + " and with a date of " + main_date + " will be added.", "Do you really want to add the following?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        string arrival_morning_string = "Arrival" + "##" + main_qrcode + "##" + main_time_arrival_morning + "##" + main_date;
+                        QR_DATA.Add(arrival_morning_string);
+                    }
+                }
+                else
+                {
+                    string message = "Arrival Morning time must be less than 10 am";
+                    string title = "ATTENTION";
+                    MessageBox.Show(message, title);
+                };
+            }
+            else if (EMPTY_arrival_morning == false && checkBox_ArrivalMorning.Checked == true)
+            {
+                string message = "The following date " + main_date + " of " + main_qrcode + " already contains a Morning Arrival Time. Please use EDIT ATTENDANCE instead!";
+                string title = "ATTENTION";
+                MessageBox.Show(message, title);
+            }
+
+            if (EMPTY_departure_morning == true && checkBox_DepartureMorning.Checked == true)
+            {
+                DateTime dateTime; DateTime.TryParse(main_time_departure_morning, out dateTime);
+                if (dateTime.Hour >= 11 && dateTime.Hour <= 12)
+                {
+                    DialogResult dialogResult = MessageBox.Show(" Morning Departure of " + main_qrcode + " with the time of " + main_time_departure_morning + " and with a date of " + main_date + " will be added.", "Do you really want to add the following?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        string departure_morning_string = "Departure" + "##" + main_qrcode + "##" + main_time_departure_morning + "##" + main_date;
+                        QR_DATA.Add(departure_morning_string);
+                    }
+                }
+                else
+                {
+                    string message = "Departure Morning time must be between 11 am and 12 pm";
+                    string title = "ATTENTION";
+                    MessageBox.Show(message, title);
+                };
+            }
+            else if (EMPTY_departure_morning == false && checkBox_DepartureMorning.Checked == true)
+            {
+                string message = "The following date " + main_date + " of " + main_qrcode + " already contains a Morning Departure Time. Please use EDIT ATTENDANCE instead!";
+                string title = "ATTENTION";
+                MessageBox.Show(message, title);
+            }
+
+            if (EMPTY_arrival_afternoon == true && checkBox_ArrivalAfternoon.Checked == true)
+            {
+                DateTime dateTime; DateTime.TryParse(main_time_arrival_afternoon, out dateTime);
+                if (dateTime.Hour >= 12 && dateTime.Hour <= 15)
+                {
+                    DialogResult dialogResult = MessageBox.Show(" Afternoon Arrival of " + main_qrcode + " with the time of " + main_time_arrival_afternoon + " and with a date of " + main_date + " will be added.", "Do you really want to add the following?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        string arrival_afternoon_string = "Arrival" + "##" + main_qrcode + "##" + main_time_arrival_afternoon + "##" + main_date;
+                        QR_DATA.Add(arrival_afternoon_string);
+                    }
+                }
+                else
+                {
+                    string message = "Arrival Afternoon time must be between 12 pm and 3 pm ";
+                    string title = "ATTENTION";
+                    MessageBox.Show(message, title);
+                };
+            }
+            else if (EMPTY_arrival_afternoon == false && checkBox_ArrivalAfternoon.Checked == true)
+            {
+                string message = "The following date " + main_date + " of " + main_qrcode + " already contains a Afternoon Arrival Time. Please use EDIT ATTENDANCE instead!";
+                string title = "ATTENTION";
+                MessageBox.Show(message, title);
+            }
+
+            if (EMPTY_departure_afternoon == true && checkBox_DepartureAfternoon.Checked == true)
+            {
+                DateTime dateTime; DateTime.TryParse(main_time_departure_afternoon, out dateTime);
+                if (dateTime.Hour >= 16 && dateTime.Hour <= 20)
+                {
+                    DialogResult dialogResult = MessageBox.Show(" Afternoon Departure of " + main_qrcode + " with the time of " + main_time_departure_afternoon + " and with a date of " + main_date + " will be added.", "Do you really want to add the following?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        string departure_afternoon_string = "Departure" + "##" + main_qrcode + "##" + main_time_departure_afternoon + "##" + main_date;
+                        QR_DATA.Add(departure_afternoon_string);
+                    }
+                }
+                else
+                {
+                    string message = "Departure Afternoon time must be between 4 pm and 8 pm ";
+                    string title = "ATTENTION";
+                    MessageBox.Show(message, title);
+                };
+            }
+            else if (EMPTY_departure_afternoon == false && checkBox_DepartureAfternoon.Checked == true)
+            {
+                string message = "The following date " + main_date + " of " + main_qrcode + " already contains a Afternoon Departure Time. Please use EDIT ATTENDANCE instead!";
+                string title = "ATTENTION";
+                MessageBox.Show(message, title);
+            }
+
+            Write_QR_DATABASE();
+
+
+        }
